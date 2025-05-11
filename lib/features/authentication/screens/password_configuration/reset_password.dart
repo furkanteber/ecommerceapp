@@ -1,3 +1,5 @@
+import 'package:ecommerceapp/features/authentication/controllers/forget_password/forget_password_controller.dart';
+import 'package:ecommerceapp/features/authentication/screens/login/login.dart';
 import 'package:ecommerceapp/utils/constants/image_strings.dart';
 import 'package:ecommerceapp/utils/constants/sizes.dart';
 import 'package:ecommerceapp/utils/constants/text_strings.dart';
@@ -7,7 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ResetPassword extends StatelessWidget {
-  const ResetPassword({super.key});
+  const ResetPassword({super.key, required this.email});
+
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +38,14 @@ class ResetPassword extends StatelessWidget {
               ),
               //Title & Subtitle
               Text(
+                email,
+                style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: TSizes.spaceBtwItems,
+              ),
+              Text(
                 TText.changeYourPasswordTitle,
                 style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
@@ -54,7 +66,8 @@ class ResetPassword extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                    onPressed: () {}, child: const Text(TText.done)),
+                    onPressed: () => Get.offAll(() => LoginScreen()),
+                    child: const Text(TText.done)),
               ),
               const SizedBox(
                 height: TSizes.spaceBtwSections,
@@ -63,7 +76,9 @@ class ResetPassword extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                    onPressed: () {}, child: const Text(TText.resendEmail)),
+                    onPressed: () => ForgetPasswordController.instance
+                        .resendPasswordResetEmail(email),
+                    child: const Text(TText.resendEmail)),
               ),
             ],
           ),
