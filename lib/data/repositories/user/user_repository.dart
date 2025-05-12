@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
 import 'package:ecommerceapp/data/repositories/authentication/authentication_repository.dart';
 import 'package:ecommerceapp/features/authentication/models/user/user_model.dart';
 import 'package:ecommerceapp/utils/exceptions/firebase_exceptions.dart';
@@ -6,6 +8,7 @@ import 'package:ecommerceapp/utils/exceptions/format_exceptions.dart';
 import 'package:ecommerceapp/utils/exceptions/platform_exceptions.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
@@ -99,5 +102,25 @@ class UserRepository extends GetxController {
     } catch (e) {
       throw 'Something went wrong.Please try again.';
     }
+  }
+
+  Future<String?> uploadImage(XFile imageFile) async {
+    final url = Uri.parse('https://api.cloudinary.com/v1_1/dpgrgijlz/upload');
+    try {
+      final request = http.MultipartRequest('POST', url);
+      request.fields['upload_preset'] = 'urtlktin';
+      request.files
+          .add(await http.MultipartFile.fromPath('file', imageFile.path));
+      final response = await request.send();
+      if (response.statusCode == 200) {
+        final responseString = await response.stream.bytesToString();
+        final jsonMap = jsonDecode(responseString);
+        return jsonMap['secure_url'];
+      }
+    } catch (e) {
+      throw 'Something went wrong.Please try again.';
+    }
+
+    return null;
   }
 }

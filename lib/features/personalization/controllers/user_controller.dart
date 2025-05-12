@@ -11,6 +11,7 @@ import 'package:ecommerceapp/utils/popups/loaders.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UserController extends GetxController {
   static UserController get instance => Get.find();
@@ -18,7 +19,7 @@ class UserController extends GetxController {
   final profileLoading = false.obs;
   Rx<UserModel> user = UserModel.empty().obs;
   final userRepository = Get.put(UserRepository());
-
+  final imageUploading = false.obs;
   final hidePassword = false.obs;
   final verifyEmail = TextEditingController();
   final verifyPassword = TextEditingController();
@@ -45,6 +46,7 @@ class UserController extends GetxController {
 
   Future<void> saveUserRecord(UserCredential? userCredentials) async {
     try {
+      await fetchUserRecord();
       if (userCredentials != null) {
         final nameParts =
             UserModel.nameParts(userCredentials.user!.displayName ?? '');
@@ -141,6 +143,44 @@ class UserController extends GetxController {
     } catch (e) {
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+    }
+  }
+
+  Future<void> uploadUserProfilePicture() async {
+    try {
+      final image = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 70,
+        maxHeight: 512,
+        maxWidth: 512,
+      );
+
+      if (image != null) {
+        imageUploading.value = true;
+        final imageUrl = await userRepository.uploadImage(image);
+
+        if (imageUrl != null) {
+          await userRepository.updateSingleField({'ProfilePicture': imageUrl});
+          user.value.profilePicture = imageUrl;
+          user.refresh();
+          TLoaders.successSnackBar(
+            title: 'Congratulations',
+            message: 'Your Profile Image has been updated',
+          );
+        } else {
+          TLoaders.errorSnackBar(
+            title: 'Upload Failed',
+            message: 'Image upload to Cloudinary failed.',
+          );
+        }
+      }
+    } catch (e) {
+      TLoaders.errorSnackBar(
+        title: 'Oh Snap!',
+        message: 'Failed to upload image: ${e.toString()}',
+      );
+    } finally {
+      imageUploading.value = false;
     }
   }
 }

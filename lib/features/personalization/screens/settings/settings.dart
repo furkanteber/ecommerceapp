@@ -4,6 +4,7 @@ import 'package:ecommerceapp/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:ecommerceapp/common/widgets/list_tiles/user_profile_tile.dart';
 import 'package:ecommerceapp/common/widgets/texts/section_heading.dart';
 import 'package:ecommerceapp/data/repositories/authentication/authentication_repository.dart';
+import 'package:ecommerceapp/features/personalization/controllers/user_controller.dart';
 import 'package:ecommerceapp/features/personalization/screens/address/address.dart';
 import 'package:ecommerceapp/features/personalization/screens/profile/profile.dart';
 import 'package:ecommerceapp/features/shop/screens/cart/cart.dart';
@@ -24,7 +25,6 @@ class SettingsScreen extends StatelessWidget {
         child: Column(
           children: [
             //Header
-
             TPrimaryHeaderContainer(
               child: Column(
                 children: [

@@ -17,7 +17,8 @@ class TUserProfileTile extends StatelessWidget {
     final controller = UserController.instance;
     return ListTile(
       leading: TCircularImage(
-        image: TImages.user,
+        isNetworkImage: true,
+        image: controller.user.value.profilePicture,
         width: 50,
         height: 50,
         padding: 0,
