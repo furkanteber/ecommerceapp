@@ -1,7 +1,6 @@
 import 'package:ecommerceapp/common/widgets/images/t_circular_image.dart';
 import 'package:ecommerceapp/features/personalization/controllers/user_controller.dart';
 import 'package:ecommerceapp/utils/constants/colors.dart';
-import 'package:ecommerceapp/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 

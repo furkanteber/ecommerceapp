@@ -1,3 +1,4 @@
+import 'package:ecommerceapp/common/widgets/images/t_circular_image.dart';
 import 'package:ecommerceapp/utils/constants/colors.dart';
 import 'package:ecommerceapp/utils/constants/sizes.dart';
 import 'package:ecommerceapp/utils/helpers/helper_functions.dart';
@@ -10,10 +11,12 @@ class TVerticalImageText extends StatelessWidget {
     required this.title,
     this.textColor,
     this.backgroundColor,
+    this.isNetworkImage = true,
     this.onTap,
   });
 
   final String image, title;
+  final bool isNetworkImage;
   final Color? textColor;
   final Color? backgroundColor;
   final void Function()? onTap;
@@ -26,41 +29,33 @@ class TVerticalImageText extends StatelessWidget {
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.only(right: TSizes.spaceBtwItems),
-        child: Column(
-          children: [
-            Container(
-              width: 56,
-              height: 56,
-              padding: const EdgeInsets.all(TSizes.sm),
-              decoration: BoxDecoration(
-                // Arka plan rengini koyu modda değiştirmek
-                color:
-                    backgroundColor ?? (dark ? TColors.black : TColors.white),
-                borderRadius: BorderRadius.circular(100),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TCircularImage(
+                image: image,
+                fit: BoxFit.fitWidth,
+                padding: TSizes.sm * 1.4,
+                isNetworkImage: isNetworkImage,
+                backgroundColor: backgroundColor,
+                overlayColor: dark ? TColors.light : TColors.dark,
               ),
-              child: Center(
-                child: Image(
-                  image: AssetImage(image),
-                  fit: BoxFit.cover,
-                  color: dark
-                      ? TColors.light
-                      : TColors.dark, // Görsellerin renkleri
+              const SizedBox(height: TSizes.spaceBtwItems / 2),
+              SizedBox(
+                width: 55,
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.labelMedium!.apply(
+                      color:
+                          textColor ?? (dark ? TColors.dark : TColors.light)),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-            ),
-            const SizedBox(height: TSizes.spaceBtwItems / 2),
-            SizedBox(
-              width: 55,
-              child: Text(
-                title,
-                style: Theme.of(context).textTheme.labelMedium!.apply(
-                    color: textColor ??
-                        (dark ? TColors.light : TColors.dark)), // Metin rengi
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
