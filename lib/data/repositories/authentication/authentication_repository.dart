@@ -1,3 +1,4 @@
+import 'package:ecommerceapp/data/repositories/user/user_repository.dart';
 import 'package:ecommerceapp/features/authentication/screens/login/login.dart';
 import 'package:ecommerceapp/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:ecommerceapp/features/authentication/screens/signup/verify_email.dart';
@@ -19,6 +20,8 @@ class AuthenticationRepository extends GetxController {
   //Variables
   final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
+
+  User? get authUser => _auth.currentUser;
 
   //Called from Main.dart on app launch
   @override
@@ -146,12 +149,51 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
+  //Reauthenticate
+  Future<void> reAuthenticateWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      AuthCredential credential =
+          EmailAuthProvider.credential(email: email, password: password);
+
+      await _auth.currentUser!.reauthenticateWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      throw TFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong.Please try again.';
+    }
+  }
+
   //Logout
   Future<void> logout() async {
     try {
       await GoogleSignIn().signOut();
       await FirebaseAuth.instance.signOut();
       Get.offAll(() => const LoginScreen());
+    } on FirebaseAuthException catch (e) {
+      throw TFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong.Please try again.';
+    }
+  }
+
+  //Delete
+  Future<void> deleteAccount() async {
+    try {
+      await UserRepository.instance.removeUserRecord(_auth.currentUser!.uid);
+      await _auth.currentUser?.delete();
     } on FirebaseAuthException catch (e) {
       throw TFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
