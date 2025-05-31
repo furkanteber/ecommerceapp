@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerceapp/common/widgets/custom_shapes/container/primary_header_container.dart';
 import 'package:ecommerceapp/common/widgets/custom_shapes/container/search_container.dart';
 import 'package:ecommerceapp/common/widgets/effects/vertical_product_shimmer.dart';
@@ -11,6 +12,7 @@ import 'package:ecommerceapp/features/shop/screens/home/widgets/home_categories.
 import 'package:ecommerceapp/features/shop/screens/home/widgets/promo_slider.dart';
 import 'package:ecommerceapp/utils/constants/colors.dart';
 import 'package:ecommerceapp/utils/constants/sizes.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -76,7 +78,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                   TSectionHeading(
                     title: 'Popular Products',
-                    onPressed: () => Get.to(() => const AllProducts()),
+                    onPressed: () => Get.to(() => AllProducts(
+                          title: 'Popular Products',
+                          futureMethod: controller.fetchAllFeaturedProducts(),
+                        )),
                   ),
                   const SizedBox(
                     height: TSizes.spaceBtwSections,
