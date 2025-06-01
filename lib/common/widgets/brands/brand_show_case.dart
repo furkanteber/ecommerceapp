@@ -1,5 +1,6 @@
 import 'package:ecommerceapp/common/widgets/brands/brand_card.dart';
 import 'package:ecommerceapp/common/widgets/custom_shapes/container/rounded_container.dart';
+import 'package:ecommerceapp/features/shop/models/brand_model.dart';
 import 'package:ecommerceapp/features/shop/screens/brand/brand_products.dart';
 import 'package:ecommerceapp/utils/constants/colors.dart';
 import 'package:ecommerceapp/utils/constants/sizes.dart';
@@ -27,7 +28,8 @@ class TBrandShowCase extends StatelessWidget {
         children: [
           TBrandCard(
             showBorder: false,
-            onTap: () => Get.to(() => BrandProducts()),
+            brand: BrandModel.empty(),
+            onTap: () => Get.to(() => BrandProducts(brand:BrandModel.empty(),)),
           ),
           const SizedBox(
             height: TSizes.spaceBtwItems,

@@ -32,12 +32,36 @@ class ProductRepository extends GetxController {
     }
   }
 
-
   Future<List<ProductModel>> fetchProductByQuery(Query query) async {
     try {
       final querySnapshot = await query.get();
-      final List<ProductModel> productList = querySnapshot.docs.map((doc) => ProductModel.fromQuerySnapshot(doc)).toList();
+      final List<ProductModel> productList = querySnapshot.docs
+          .map((doc) => ProductModel.fromQuerySnapshot(doc))
+          .toList();
       return productList;
+    } catch (e) {
+      throw 'Something went wrong.Please try again.';
+    }
+  }
+
+  Future<List<ProductModel>> getProductsForBrand(
+      {required String brandId, int limit = -1}) async {
+    try {
+      final querySnaphot = limit == -1
+          ? await _db
+              .collection('Products')
+              .where('Brand.Id', isEqualTo: brandId)
+              .get()
+          : await _db
+              .collection('Products')
+              .where('Brand.Id', isEqualTo: brandId)
+              .limit(limit)
+              .get();
+      final products = querySnaphot.docs
+          .map((doc) => ProductModel.fromSnapshot(doc))
+          .toList();
+
+      return products;
     } catch (e) {
       throw 'Something went wrong.Please try again.';
     }

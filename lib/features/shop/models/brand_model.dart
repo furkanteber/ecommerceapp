@@ -4,7 +4,7 @@ class BrandModel {
   String id;
   String name;
   String image;
-  bool? isFeatured; 
+  bool? isFeatured;
   int? productsCount;
 
   BrandModel(
@@ -14,14 +14,15 @@ class BrandModel {
       this.isFeatured,
       this.productsCount});
 
-  static BrandModel empty() => BrandModel(id: '', image: '', name: '');
+  static BrandModel empty() =>
+      BrandModel(id: '', image: '', name: '', productsCount: 0);
 
   toJson() {
     return {
       'Id': id,
       'Name': name,
       'Image': image,
-      'ProductsCount': productsCount,
+      'ProductCount': productsCount,
       'IsFeatured': isFeatured,
     };
   }
@@ -34,7 +35,7 @@ class BrandModel {
         image: data['Image'] ?? '',
         name: data['Name'] ?? '',
         isFeatured: data['IsFeatured'] ?? false,
-        productsCount: int.parse((data['ProductsCount'] ?? 0).toString()));
+        productsCount: int.parse((data['ProductCount'] ?? 0).toString()));
   }
 
   factory BrandModel.fromSnapshot(
@@ -46,7 +47,7 @@ class BrandModel {
           image: data['Image'] ?? '',
           name: data['Name'] ?? '',
           isFeatured: data['IsFeatured'] ?? false,
-          productsCount: int.parse((data['ProductsCount'] ?? 0).toString()));
+          productsCount: int.parse((data['ProductCount'] ?? 0).toString()));
     }
     return BrandModel.empty();
   }
