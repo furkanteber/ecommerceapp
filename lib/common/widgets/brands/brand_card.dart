@@ -4,7 +4,6 @@ import 'package:ecommerceapp/common/widgets/texts/t_brand_title_text_with_verifi
 import 'package:ecommerceapp/features/shop/models/brand_model.dart';
 import 'package:ecommerceapp/utils/constants/colors.dart';
 import 'package:ecommerceapp/utils/constants/enums.dart';
-import 'package:ecommerceapp/utils/constants/image_strings.dart';
 import 'package:ecommerceapp/utils/constants/sizes.dart';
 import 'package:ecommerceapp/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
