@@ -3,6 +3,7 @@ import 'package:ecommerceapp/features/shop/models/category_model.dart';
 import 'package:ecommerceapp/utils/exceptions/firebase_exceptions.dart';
 import 'package:ecommerceapp/utils/exceptions/format_exceptions.dart';
 import 'package:ecommerceapp/utils/exceptions/platform_exceptions.dart';
+import 'package:ecommerceapp/utils/popups/loaders.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -30,12 +31,20 @@ class CategoryRepositorry extends GetxController {
       throw 'Something went wrong.Please try again.';
     }
   }
-  //Get Sub Categoties
 
-  //Upload Categories to the Cloud Firebase
-  Future<void> uploadDummyData(List<CategoryModel> categories) async {
+  //Get Sub Categoties
+  Future<List<CategoryModel>> getSubCategories(String categoryId) async {
     try {
-      //final storage = Get.put();
-    } catch (e) {}
+      final snapshot = await _db
+          .collection("Categories")
+          .where('ParentId', isEqualTo: categoryId)
+          .get();
+      final result =
+          snapshot.docs.map((e) => CategoryModel.fromSnapShot(e)).toList();
+      return result;
+    } catch (e) {
+      TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      return [];
+    }
   }
 }

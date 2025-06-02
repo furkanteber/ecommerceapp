@@ -99,6 +99,9 @@ class ProductRepository extends GetxController {
           .map((doc) => doc['productId'] as String)
           .toList();
 
+      print("productIds: $productIds");
+      print("categoryId: $categoryId"); // ne gönderdiğini gör
+
       final productQuery = await _db
           .collection('Products')
           .where(FieldPath.documentId, whereIn: productIds)

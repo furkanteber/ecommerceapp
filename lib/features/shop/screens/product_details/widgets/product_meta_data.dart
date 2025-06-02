@@ -96,6 +96,7 @@ class TProductMetaData extends StatelessWidget {
               image: product.brand != null ? product.brand!.image : '',
               width: 32,
               height: 32,
+              isNetworkImage: true,
               overlayColor: dark ? TColors.white : TColors.black,
             ),
             TBrandTitleWithVerifiedIcon(

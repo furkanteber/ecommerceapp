@@ -36,7 +36,7 @@ class TBrandShowCase extends StatelessWidget {
           children: [
             TBrandCard(
               showBorder: false,
-              brand: BrandModel.empty(),
+              brand: brand,
               onTap: () => Get.to(() => BrandProducts(
                     brand: brand,
                   )),
