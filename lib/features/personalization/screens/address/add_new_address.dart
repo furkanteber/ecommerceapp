@@ -1,4 +1,5 @@
 import 'package:ecommerceapp/common/widgets/appbar/appbar.dart';
+import 'package:ecommerceapp/features/personalization/controllers/address_controller.dart';
 import 'package:ecommerceapp/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -8,6 +9,7 @@ class AddNewAddressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = AddressController.instance;
     return Scaffold(
       appBar: TAppBar(
         showBackArrow: true,
@@ -20,6 +22,7 @@ class AddNewAddressScreen extends StatelessWidget {
             child: Column(
               children: [
                 TextField(
+                  controller: controller.name,
                   decoration: InputDecoration(
                       prefixIcon: Icon(Iconsax.user), labelText: 'Name'),
                 ),
@@ -27,6 +30,7 @@ class AddNewAddressScreen extends StatelessWidget {
                   height: TSizes.spaceBtwInputFields,
                 ),
                 TextField(
+                  controller: controller.phoneNumber,
                   decoration: InputDecoration(
                       prefixIcon: Icon(Iconsax.mobile),
                       labelText: 'Phone Number'),
@@ -38,6 +42,7 @@ class AddNewAddressScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextField(
+                        controller: controller.street,
                         decoration: InputDecoration(
                             prefixIcon: Icon(Iconsax.building_31),
                             labelText: 'Street'),
@@ -48,6 +53,7 @@ class AddNewAddressScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: TextField(
+                        controller: controller.postalCode,
                         decoration: InputDecoration(
                             prefixIcon: Icon(Iconsax.code),
                             labelText: 'Postal Code'),
@@ -62,6 +68,7 @@ class AddNewAddressScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextField(
+                        controller: controller.city,
                         decoration: InputDecoration(
                             prefixIcon: Icon(Iconsax.building),
                             labelText: 'City'),
@@ -72,6 +79,7 @@ class AddNewAddressScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: TextField(
+                        controller: controller.state,
                         decoration: InputDecoration(
                             prefixIcon: Icon(Iconsax.activity),
                             labelText: 'State'),
@@ -83,6 +91,7 @@ class AddNewAddressScreen extends StatelessWidget {
                   height: TSizes.spaceBtwInputFields,
                 ),
                 TextField(
+                  controller: controller.country,
                   decoration: InputDecoration(
                       prefixIcon: Icon(Iconsax.global), labelText: 'Country'),
                 ),
@@ -91,7 +100,10 @@ class AddNewAddressScreen extends StatelessWidget {
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(onPressed: () {}, child: Text('Save')),
+                  child: ElevatedButton(
+                      key: controller.addressFormKey,
+                      onPressed: controller.addNewAddresses,
+                      child: Text('Save')),
                 )
               ],
             ),
