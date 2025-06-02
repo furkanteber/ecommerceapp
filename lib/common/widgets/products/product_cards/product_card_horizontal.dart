@@ -1,9 +1,9 @@
 import 'package:ecommerceapp/common/widgets/custom_shapes/container/rounded_container.dart';
-import 'package:ecommerceapp/common/widgets/icons/t_circular_icon.dart';
 import 'package:ecommerceapp/common/widgets/images/t_rounded_image.dart';
 import 'package:ecommerceapp/common/widgets/texts/product_price_text.dart';
 import 'package:ecommerceapp/common/widgets/texts/product_title_text.dart';
 import 'package:ecommerceapp/common/widgets/texts/t_brand_title_text_with_verified_icon.dart';
+import 'package:ecommerceapp/features/shop/screens/products/favourite_icon/favourite_icon.dart';
 import 'package:ecommerceapp/utils/constants/colors.dart';
 import 'package:ecommerceapp/utils/constants/image_strings.dart';
 import 'package:ecommerceapp/utils/constants/sizes.dart';
@@ -22,7 +22,7 @@ class TProductCardHorizontal extends StatelessWidget {
       padding: const EdgeInsets.all(1),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(TSizes.productImageRadius),
-        color: dark ? TColors.darkerGrey : TColors.softGrey ,
+        color: dark ? TColors.darkerGrey : TColors.softGrey,
       ),
       child: Row(
         children: [
@@ -62,14 +62,12 @@ class TProductCardHorizontal extends StatelessWidget {
                 ),
 
                 // Favorite Icon Button
-                const Positioned(
-                  top: 0,
-                  right: 0,
-                  child: TCircularIcon(
-                    icon: Iconsax.heart5,
-                    color: Colors.red,
-                  ),
-                ),
+                Positioned(
+                    top: 0,
+                    right: 0,
+                    child: TFavouriteIcon(
+                      productId: '',
+                    )),
               ],
             ),
           ),

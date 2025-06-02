@@ -2,7 +2,6 @@ import 'package:ecommerceapp/common/widgets/brands/brand_show_case.dart';
 import 'package:ecommerceapp/common/widgets/effects/vertical_product_shimmer.dart';
 import 'package:ecommerceapp/features/shop/controllers/brand_controller.dart';
 import 'package:ecommerceapp/features/shop/models/category_model.dart';
-import 'package:ecommerceapp/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 
 class CategoryBrands extends StatelessWidget {
@@ -65,7 +64,7 @@ class CategoryBrands extends StatelessWidget {
                   final products = snapshot.data!;
 
                   return TBrandShowCase(
-                    images: products.map((e)=>e.thumbnail).toList(),
+                    images: products.map((e) => e.thumbnail).toList(),
                     brand: brand,
                   );
                 },
