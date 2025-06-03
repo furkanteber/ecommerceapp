@@ -70,7 +70,13 @@ class TBottomAddToCart extends StatelessWidget {
                   padding: const EdgeInsets.all(TSizes.md),
                   backgroundColor: TColors.black,
                   side: const BorderSide(color: TColors.black)),
-              child: const Text('Add to Cart'),
+              child: Text(
+                'Add to Cart',
+                style: TextStyle(
+                    color: controller.productQuantityInCart.value < 1
+                        ? TColors.white
+                        : null),
+              ),
             ),
           ],
         ),

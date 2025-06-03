@@ -32,7 +32,7 @@ class UpdateNameController extends GetxController {
   Future<void> updateUserNames() async {
     try {
       TFullScreenLoader.openLoadingDialog(
-          'We are updatng information.', TImages.docerAnimation);
+          'We are updating information.', TImages.docerAnimation);
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
         TFullScreenLoader.stopLoading();

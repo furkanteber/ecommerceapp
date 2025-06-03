@@ -8,17 +8,21 @@ import 'package:iconsax/iconsax.dart';
 class TSearchContainer extends StatelessWidget {
   const TSearchContainer({
     super.key,
-    required this.text,
+    this.hintText = 'Search...',
     this.icon = Iconsax.search_normal,
     this.showBackground = true,
     this.showBorder = true,
     this.padding = const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
+    this.onChanged,
+    this.controller,
   });
 
-  final String text;
+  final String hintText;
   final IconData? icon;
   final bool showBackground, showBorder;
   final EdgeInsetsGeometry padding;
+  final ValueChanged<String>? onChanged;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -27,27 +31,37 @@ class TSearchContainer extends StatelessWidget {
       padding: padding,
       child: Container(
         width: TDeviceUtils.getScreenWidth(context),
-        padding: const EdgeInsets.all(TSizes.md),
+        padding: const EdgeInsets.symmetric(horizontal: TSizes.md),
         decoration: BoxDecoration(
-            color: showBackground
-                ? dark
-                    ? TColors.dark
-                    : TColors.light
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(TSizes.cardRadiusLg),
-            border: showBorder ? Border.all(color: TColors.grey) : null),
+          color: showBackground
+              ? dark
+                  ? TColors.dark
+                  : TColors.light
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(TSizes.cardRadiusLg),
+          border: showBorder ? Border.all(color: TColors.grey) : null,
+        ),
         child: Row(
           children: [
             Icon(
               icon,
               color: dark ? TColors.white : TColors.darkerGrey,
             ),
-            const SizedBox(
-              width: TSizes.spaceBtwItems,
-            ),
-            Text(
-              text,
-              style: Theme.of(context).textTheme.bodySmall,
+            const SizedBox(width: TSizes.spaceBtwItems),
+            Expanded(
+              child: TextField(
+                controller: controller,
+                onChanged: onChanged,
+                style: Theme.of(context).textTheme.bodySmall,
+                decoration: InputDecoration(
+                  hintText: hintText,
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  isDense: true,
+                  contentPadding: EdgeInsets.symmetric(vertical: 12),
+                ),
+              ),
             ),
           ],
         ),

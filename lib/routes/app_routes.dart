@@ -6,6 +6,7 @@ import 'package:ecommerceapp/features/authentication/screens/signup/verify_email
 import 'package:ecommerceapp/features/personalization/screens/address/address.dart';
 import 'package:ecommerceapp/features/personalization/screens/profile/profile.dart';
 import 'package:ecommerceapp/features/personalization/screens/settings/settings.dart';
+import 'package:ecommerceapp/features/shop/models/product_model.dart';
 import 'package:ecommerceapp/features/shop/screens/cart/cart.dart';
 import 'package:ecommerceapp/features/shop/screens/checkout/checkout.dart';
 import 'package:ecommerceapp/features/shop/screens/home/home.dart';
@@ -22,7 +23,11 @@ class AppRoutes {
     GetPage(name: TRoutes.store, page: () => const StoreScreen()),
     GetPage(name: TRoutes.favourites, page: () => const FavouriteScreen()),
     GetPage(name: TRoutes.settings, page: () => const SettingsScreen()),
-    GetPage(name: TRoutes.productReviews, page: () => ProductReviewScreen()),
+    GetPage(
+        name: TRoutes.productReviews,
+        page: () => ProductReviewScreen(
+              product: ProductModel.empty(),
+            )),
     GetPage(name: TRoutes.order, page: () => const OrderScreen()),
     GetPage(name: TRoutes.checkout, page: () => const CheckoutScreen()),
     GetPage(name: TRoutes.cart, page: () => const CartScreen()),

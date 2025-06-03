@@ -53,7 +53,6 @@ class StoreScreen extends StatelessWidget {
                       children: [
                         SizedBox(height: TSizes.spaceBtwItems),
                         TSearchContainer(
-                          text: 'Search in Store',
                           showBorder: true,
                           showBackground: false,
                           padding: EdgeInsets.zero,
@@ -96,7 +95,8 @@ class StoreScreen extends StatelessWidget {
                                 return TBrandCard(
                                   showBorder: true,
                                   brand: brand,
-                                  onTap: () => Get.to(()=>BrandProducts(brand: brand)),
+                                  onTap: () =>
+                                      Get.to(() => BrandProducts(brand: brand)),
                                 );
                               });
                         })

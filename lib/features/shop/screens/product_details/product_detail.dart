@@ -1,5 +1,7 @@
 import 'package:ecommerceapp/common/widgets/texts/section_heading.dart';
+import 'package:ecommerceapp/features/shop/controllers/product/add_new_rating_controller.dart';
 import 'package:ecommerceapp/features/shop/models/product_model.dart';
+import 'package:ecommerceapp/features/shop/screens/cart/cart.dart';
 import 'package:ecommerceapp/features/shop/screens/product_details/widgets/bottom_add_to_card_widget.dart';
 import 'package:ecommerceapp/features/shop/screens/product_details/widgets/product_attributes.dart';
 import 'package:ecommerceapp/features/shop/screens/product_details/widgets/product_detail_image_slider.dart';
@@ -19,8 +21,9 @@ class ProductDetailScreen extends StatelessWidget {
   final ProductModel product;
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(RatingController());
     return Scaffold(
-      bottomNavigationBar: TBottomAddToCart(product:product),
+      bottomNavigationBar: TBottomAddToCart(product: product),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -55,7 +58,7 @@ class ProductDetailScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => Get.to(() => CartScreen()),
                       child: Text('Checkout'),
                     ),
                   ),
@@ -89,13 +92,27 @@ class ProductDetailScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TSectionHeading(
-                        title: 'Reviews(188)',
-                        onPressed: () {},
-                        showActionButton: false,
-                      ),
+                      FutureBuilder(
+                          future: controller.fetchRatingCount(product.id),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return CircularProgressIndicator();
+                            }
+                            if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            }
+                            final count = snapshot.data ?? 0;
+                            return TSectionHeading(
+                              title: 'Review ($count)',
+                              onPressed: () {},
+                              showActionButton: false,
+                            );
+                          }),
                       IconButton(
-                        onPressed: () => Get.to(() => ProductReviewScreen()),
+                        onPressed: () => Get.to(() => ProductReviewScreen(
+                              product: product,
+                            )),
                         icon: const Icon(
                           Iconsax.arrow_right_34,
                           size: 18,

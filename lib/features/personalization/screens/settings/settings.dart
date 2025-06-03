@@ -79,7 +79,7 @@ class SettingsScreen extends StatelessWidget {
                   subTitle: 'In-progress and Completed orders.',
                   onTap: () => Get.to(() => OrderScreen()),
                 ),
-                TSettingsMenuTile(
+                /*TSettingsMenuTile(
                   icon: Iconsax.bank,
                   title: 'Bank Account',
                   subTitle: 'Withdraw balance to registered bank account.',
@@ -95,8 +95,8 @@ class SettingsScreen extends StatelessWidget {
                   icon: Iconsax.notification,
                   title: 'Notifications',
                   subTitle: 'Set any kind of notification message.',
-                  onTap: () {},
-                ),
+                  onTap: () {}, 
+                ),*/
                 TSettingsMenuTile(
                   icon: Iconsax.security_card,
                   title: 'Account Privacy',
@@ -116,7 +116,7 @@ class SettingsScreen extends StatelessWidget {
                 SizedBox(
                   height: TSizes.spaceBtwItems,
                 ),
-                TSettingsMenuTile(
+                /*   TSettingsMenuTile(
                   icon: Iconsax.document_upload,
                   title: 'Load Data',
                   subTitle: 'Upload data to your Cloud Firebase.',
@@ -126,8 +126,8 @@ class SettingsScreen extends StatelessWidget {
                   icon: Iconsax.location,
                   title: 'GeoLocation',
                   subTitle: 'Set recommendation based on location.',
-                  trailing: Switch(value: true, onChanged: (value) {}),
-                ),
+                  trailing: Switch(value: true, onChanged: (value) {}), 
+                ), */
                 TSettingsMenuTile(
                   icon: Iconsax.security_user,
                   title: 'Safe Mode',

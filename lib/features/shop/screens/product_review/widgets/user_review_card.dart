@@ -1,18 +1,30 @@
-import 'package:ecommerceapp/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:ecommerceapp/common/widgets/products/ratings/rating_indicator.dart';
+import 'package:ecommerceapp/features/shop/controllers/product/add_new_rating_controller.dart';
 import 'package:ecommerceapp/utils/constants/colors.dart';
-import 'package:ecommerceapp/utils/constants/image_strings.dart';
 import 'package:ecommerceapp/utils/constants/sizes.dart';
-import 'package:ecommerceapp/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 
 class UserReviewCard extends StatelessWidget {
-  const UserReviewCard({super.key});
+  const UserReviewCard(
+      {super.key,
+      required this.username,
+      required this.comment,
+      required this.photoUrl,
+      required this.rating,
+      this.createdAt});
+
+  final String username;
+  final String comment;
+  final String photoUrl;
+  final double rating;
+  final DateTime? createdAt;
 
   @override
   Widget build(BuildContext context) {
-    final dark = THelperFuncitons.isDarkMode(context);
+    //final dark = THelperFuncitons.isDarkMode(context);
+    final controller = Get.put(RatingController());
     return Column(
       children: [
         Row(
@@ -21,13 +33,13 @@ class UserReviewCard extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: AssetImage(TImages.userProfileImage2),
+                  backgroundImage: NetworkImage(photoUrl),
                 ),
                 const SizedBox(
                   width: TSizes.spaceBtwItems,
                 ),
                 Text(
-                  'Furkan Teber',
+                  username,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ],
@@ -41,12 +53,12 @@ class UserReviewCard extends StatelessWidget {
         //Review
         Row(
           children: [
-            TRatingBarIndicator(rating: 3.5),
+            TRatingBarIndicator(rating: rating),
             const SizedBox(
               width: TSizes.spaceBtwItems,
             ),
             Text(
-              '1 Jan, 2025',
+              controller.formatTimestampToDate(createdAt),
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
@@ -55,7 +67,7 @@ class UserReviewCard extends StatelessWidget {
           height: TSizes.spaceBtwItems,
         ),
         ReadMoreText(
-          'The user interface of the app is quite intvitive.I was able to navigate and make purchases seamlessly.Great job.',
+          comment,
           trimLines: 2,
           trimMode: TrimMode.Line,
           trimExpandedText: ' show less',
@@ -73,6 +85,7 @@ class UserReviewCard extends StatelessWidget {
           height: TSizes.spaceBtwItems,
         ),
         //Company Review
+        /*
         TRoundedContainer(
           backgroundColor: dark ? TColors.darkerGrey : TColors.grey,
           child: Padding(
@@ -114,6 +127,7 @@ class UserReviewCard extends StatelessWidget {
             ),
           ),
         ),
+        */
         const SizedBox(
           height: TSizes.spaceBtwSections,
         ),
