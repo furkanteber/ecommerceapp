@@ -40,6 +40,7 @@ class ProductModel {
     this.productVariations,
   });
 
+  String get brandName => brand?.name ?? '';
   static ProductModel empty() => ProductModel(
       id: '', title: '', stock: 0, price: 0, thumbnail: '', productType: '');
 

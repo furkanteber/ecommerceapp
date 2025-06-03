@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerceapp/data/repositories/product/product_repository.dart';
 import 'package:ecommerceapp/features/shop/models/product_model.dart';
 import 'package:ecommerceapp/utils/constants/enums.dart';
@@ -29,6 +30,24 @@ class ProductController extends GetxController {
     } finally {
       isLoading.value = false;
     }
+  }
+
+  Future<List<ProductModel>> searchProductsByBrandName(String query) async {
+    final snapshot =
+        await FirebaseFirestore.instance.collection('Products').get();
+
+    final allProducts = snapshot.docs
+        .map((doc) => ProductModel.fromQuerySnapshot(doc))
+        .toList();
+
+    final lowerQuery = query.toLowerCase();
+
+    return allProducts
+        .where((product) =>
+            product.title.toLowerCase().contains(lowerQuery) ||
+            product.brandName.toLowerCase().contains(lowerQuery) ||
+            (product.description?.toLowerCase().contains(lowerQuery) ?? false))
+        .toList();
   }
 
   Future<List<ProductModel>> fetchAllFeaturedProducts() async {

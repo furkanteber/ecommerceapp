@@ -1,8 +1,10 @@
+import 'package:ecommerceapp/features/shop/screens/home/widgets/search_result_screen.dart';
 import 'package:ecommerceapp/utils/constants/colors.dart';
 import 'package:ecommerceapp/utils/constants/sizes.dart';
 import 'package:ecommerceapp/utils/device/device_utilitiy.dart';
 import 'package:ecommerceapp/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class TSearchContainer extends StatelessWidget {
@@ -51,6 +53,11 @@ class TSearchContainer extends StatelessWidget {
             Expanded(
               child: TextField(
                 controller: controller,
+                onSubmitted: (value) {
+                  if (value.trim().isNotEmpty) {
+                    Get.to(() => SearchResultsScreen(query: value.trim()));
+                  }
+                },
                 onChanged: onChanged,
                 style: Theme.of(context).textTheme.bodySmall,
                 decoration: InputDecoration(
