@@ -46,6 +46,8 @@ class TImages {
       "assets/images/animations/141594-animation-of-docer.json";
   static const String successfulRegisterAnimation =
       "assets/images/animations/sammy-line-success.png";
+  static const String cartAnimation =
+      "assets/images/animations/animation-1748950774591.json";
 
   static const String productsIllustration =
       "assets/images/animations/sammy-line-workout.gif";

@@ -1,6 +1,7 @@
 import 'package:ecommerceapp/common/styles/shadows.dart';
 import 'package:ecommerceapp/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:ecommerceapp/common/widgets/images/t_rounded_image.dart';
+import 'package:ecommerceapp/common/widgets/products/product_cards/add_to_cart_button.dart';
 import 'package:ecommerceapp/common/widgets/texts/product_price_text.dart';
 import 'package:ecommerceapp/common/widgets/texts/product_title_text.dart';
 import 'package:ecommerceapp/common/widgets/texts/t_brand_title_text_with_verified_icon.dart';
@@ -14,7 +15,6 @@ import 'package:ecommerceapp/utils/constants/sizes.dart';
 import 'package:ecommerceapp/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 class TProductCardVertical extends StatelessWidget {
   const TProductCardVertical({super.key, required this.product});
@@ -74,7 +74,9 @@ class TProductCardVertical extends StatelessWidget {
                   Positioned(
                     top: 0,
                     right: 0,
-                    child: TFavouriteIcon(productId: product.id,),
+                    child: TFavouriteIcon(
+                      productId: product.id,
+                    ),
                   ),
                 ],
               ),
@@ -125,25 +127,7 @@ class TProductCardVertical extends StatelessWidget {
                     ),
                   ]),
                 ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: TColors.dark,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(TSizes.cardRadiusMd),
-                      bottomRight: Radius.circular(TSizes.productImageRadius),
-                    ),
-                  ),
-                  child: const SizedBox(
-                    width: TSizes.iconLg * 1.2,
-                    height: TSizes.iconLg * 1.2,
-                    child: Center(
-                      child: Icon(
-                        Iconsax.add,
-                        color: TColors.white,
-                      ),
-                    ),
-                  ),
-                )
+                ProductCardAddCartButton(product: product),
               ],
             ),
           ],
